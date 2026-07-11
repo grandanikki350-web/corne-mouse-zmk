@@ -19,15 +19,20 @@ applied to an off-the-shelf wireless Corne.
   power. Keys and pointer motion from the right half cross over Bluetooth.
 - **Pointing sensor:** **PMW3360** on the right half, over SPI, driven by
   [`george-norton/zmk-driver-pmw3360`](https://github.com/george-norton/zmk-driver-pmw3360).
-- **Interaction:** hold-to-mouse — hold the left-inner thumb (`&mo MOUSE`) to
-  enter the mouse layer; the right hand becomes clicks + scroll while you slide.
+- **Interaction:** hold-to-mouse — hold the left thumb SPACE (`&lt 1`, the
+  `upper` layer, which already carries `&mkp MB1/MB2`); slide the right half to
+  move and click. Turned on by uncommenting `layers = <1>;` in `mouse.dtsi`.
+
+> The keymap and BLE tuning here are copied verbatim from
+> [`xonha/zmk-corne`](https://github.com/xonha/zmk-corne); the only addition is
+> the sensor (`mouse.dtsi` + `corne_right.conf` + the driver in `west.yml`).
 
 ## Layout of this repo
 
 | File | Purpose |
 | --- | --- |
 | `config/west.yml` | Pulls in ZMK + the PMW3360 driver module. |
-| `config/corne.keymap` | Layers (Base/Lower/Raise/Mouse) **and** `#include`s the pointer devicetree. |
+| `config/corne.keymap` | Your zmk-corne keymap verbatim, **plus** `#include "mouse.dtsi"`. |
 | `config/mouse.dtsi` | The sensor: SPI node, pins, input-split channel, per-side split. |
 | `config/corne.conf` | Kconfig for **both** halves (pointing + BLE split). |
 | `config/corne_right.conf` | Kconfig for the **right** half only (SPI + driver). |
@@ -56,8 +61,8 @@ This repo is a **correct scaffold**, not a flashable-as-is firmware. You must:
 3. **Confirm the board target.** See [caveat](#board-caveat).
 4. **First flash: verify raw tracking** with the mouse layer's `layers` gate
    *disabled* (default). Slide the right half — the cursor should move.
-5. **Then enable hold-to-mouse:** uncomment `layers = <MOUSE>;` in
-   `mouse.dtsi` so the cursor only moves while the thumb is held.
+5. **Then enable hold-to-mouse:** uncomment `layers = <1>;` in `mouse.dtsi` so
+   the cursor only moves while the `upper` layer (left thumb SPACE) is held.
 6. **Fix orientation** if X/Y are swapped/inverted (a face-down sensor usually
    is): `rotate-90;` and/or the `input-processors` line in `mouse.dtsi`.
 
@@ -91,6 +96,10 @@ west build -s zmk/app -b nice_nano_v2 -- -DSHIELD=corne_right
   that's a real (if small) latency cost. If it bothers you, ZMK's wired UART
   split is the lower-latency path — but on a *desk-mouse* it adds a second
   trailing cable to the half you slide, so it was passed over here.
+- **ZMK revision.** `west.yml` and the workflow are pinned to `v0.3` (matching
+  zmk-corne). Peripheral pointing needs `zmk,input-split`; if the right-half
+  build errors on those nodes, bump `zmk` in `west.yml` and the workflow ref to
+  a newer tag together.
 - **The sliding half still has one cable** (its USB power lead). It must flex
   and extend across your whole mousing range — a coiled/retractable lead or a
   generous service loop helps. This is the classic desk-mouse tether problem.

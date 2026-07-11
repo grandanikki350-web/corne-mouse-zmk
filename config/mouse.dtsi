@@ -34,10 +34,11 @@
         device = <&trackball_split>;
 
         /* HOLD-TO-MOUSE (the Scoot interaction model): uncomment to only move
-         * the cursor while the MOUSE layer is held, so sliding the right half
-         * never nudges the cursor mid-typing. Verify raw tracking works FIRST,
-         * then enable this. MOUSE is #defined in corne.keymap. */
-        // layers = <MOUSE>;
+         * the cursor while a layer is held, so sliding the right half never
+         * nudges the cursor mid-typing. Verify raw tracking works FIRST, then
+         * enable this. Layer 1 = `upper` (hold the left thumb SPACE), which
+         * already carries &mkp MB1/MB2 -> slide to move, MB1/MB2 to click. */
+        // layers = <1>;
     };
 };
 

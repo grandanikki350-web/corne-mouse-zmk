@@ -1,69 +1,106 @@
+/*
+ * Copyright (c) 2020 The ZMK Contributors
+ *
+ * SPDX-License-Identifier: MIT
+ */
+
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/keys.h>
-#include <dt-bindings/zmk/bt.h>
-#include <dt-bindings/zmk/pointing.h>   /* &mkp, &msc, LCLK/RCLK/MCLK, SCRL_* */
+#include <dt-bindings/zmk/pointing.h>
 
-/* Layer indices. Defined BEFORE mouse.dtsi so it can reference MOUSE. */
-#define DEFAULT 0
-#define LOWER   1
-#define RAISE   2
-#define MOUSE   3
-
-/* Pointer hardware + split plumbing (see the file for the wiring TODOs). */
+/*
+ * Desk-mouse hardware (PMW3360 on the right half) + the split plumbing that
+ * carries its motion to the left/central half. See config/mouse.dtsi for the
+ * wiring TODOs. This is the only addition on top of the base zmk-corne keymap.
+ *
+ * Layer indices used below (unchanged from zmk-corne):
+ *   0 = main   1 = upper (hold left thumb SPACE)   2 = lower   3 = extra
+ * The `upper` layer already carries &mkp MB1/MB2, so it's the natural
+ * hold-to-mouse gate -- see the `layers` note in mouse.dtsi.
+ */
 #include "mouse.dtsi"
 
+&lt { tapping-term-ms = <150>; };
+
+&mt { tapping-term-ms = <150>; };
+
 / {
+    behaviors {
+        // Shift no X (mao esquerda): so segura se a proxima tecla for da mao DIREITA
+
+        lsft: left_shift_positional {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "balanced";
+            tapping-term-ms = <200>;
+            quick-tap-ms = <175>;
+            require-prior-idle-ms = <125>;
+            bindings = <&kp>, <&kp>;
+
+            hold-trigger-key-positions = <6 7 8 9 10 11 18 19 20 21 22 23 30 31 32 33 34 35 39 40 41>;
+            hold-trigger-on-release;
+        };
+
+        // Shift no . (mao direita): so segura se a proxima tecla for da mao ESQUERDA
+
+        rsft: right_shift_positional {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "balanced";
+            tapping-term-ms = <200>;
+            quick-tap-ms = <175>;
+            require-prior-idle-ms = <125>;
+            bindings = <&kp>, <&kp>;
+
+            hold-trigger-key-positions = <0 1 2 3 4 5 12 13 14 15 16 17 24 25 26 27 28 29 36 37 38>;
+            hold-trigger-on-release;
+        };
+    };
+
+    combos { compatible = "zmk,combos"; };
+
     keymap {
         compatible = "zmk,keymap";
 
-        /*
-         * Stock `corne` is a 3x6+3 (42-key) matrix. If your Corne v2 has the
-         * outer column physically detached, those outer keys simply never fire,
-         * so leaving real bindings there is harmless. Port your own layers in.
-         */
+        main {
+            // -----------------------------------------------------------------------------------------
+            // |  TAB |  Q  |  W  |  E  |  R  |  T  |   |  Y  |  U   |  I  |  O  |  P  | BSPC |
+            // | CTRL |  A  |  S  |  D  |  F  |  G  |   |  H  |  J   |  K  |  L  |  ;  |  '   |
+            // | SHFT |  Z  |  X  |  C  |  V  |  B  |   |  N  |  M   |  ,  |  .  |  /  | ESC  |
+            //                    | GUI | LWR | SPC |   | ENT | RSE  | ALT |
 
-        default_layer {
-            display-name = "Base";
             bindings = <
-   &kp TAB    &kp Q  &kp W  &kp E     &kp R      &kp T        &kp Y    &kp U      &kp I      &kp O    &kp P     &kp BSPC
-   &kp LCTRL  &kp A  &kp S  &kp D     &kp F      &kp G        &kp H    &kp J      &kp K      &kp L    &kp SEMI  &kp SQT
-   &kp LSHFT  &kp Z  &kp X  &kp C     &kp V      &kp B        &kp N    &kp M      &kp COMMA  &kp DOT  &kp FSLH  &kp ESC
-                            &mo MOUSE &mo LOWER  &kp SPACE    &kp RET  &mo RAISE  &kp RALT
+&trans  &kp Q               &kp W  &kp E          &kp R        &kp T               &kp Y               &kp U         &kp I          &kp O    &kp P                    &trans
+&trans  &kp A               &kp S  &kp D          &kp F        &kp G               &kp H               &kp J         &kp K          &kp L    &kp SEMI                 &trans
+&trans  &lsft LEFT_SHIFT Z  &kp X  &kp C          &kp V        &kp B               &kp N               &kp M         &kp COMMA      &kp DOT  &rsft RIGHT_SHIFT SLASH  &trans
+                                   &mt LCTRL TAB  &lt 1 SPACE  &mt LEFT_WIN ESC    &mt LEFT_ALT ENTER  &lt 2 DELETE  &kp BACKSPACE
             >;
         };
 
-        lower_layer {
-            display-name = "Lower";
+        upper {
             bindings = <
-   &kp TAB    &kp N1  &kp N2  &kp N3  &kp N4  &kp N5      &kp N6    &kp N7    &kp N8    &kp N9     &kp N0    &kp BSPC
-   &kp LCTRL  &trans  &trans  &trans  &trans  &trans      &kp LEFT  &kp DOWN  &kp UP    &kp RIGHT  &trans    &trans
-   &kp LSHFT  &trans  &trans  &trans  &trans  &trans      &trans    &trans    &trans    &trans     &trans    &trans
-                              &trans  &trans  &trans      &trans    &trans    &kp RALT
+&trans  &kp ASTERISK  &kp NUMBER_7  &kp NUMBER_8   &kp NUMBER_9  &kp PLUS            &kp LS(BACKSLASH)      &kp RIGHT_PARENTHESIS  &kp BACKSLASH      &kp LS(LEFT_BRACKET)  &kp LEFT_BRACKET  &trans
+&trans  &kp NUMBER_0  &kp NUMBER_4  &kp NUMBER_5   &kp NUMBER_6  &mt COMMA PERIOD    &kp LS(RIGHT_BRACKET)  &kp LEFT_PARENTHESIS   &kp RIGHT_BRACKET  &kp LS(APOSTROPHE)    &kp APOSTROPHE    &trans
+&trans  &kp RA(Q)     &kp NUMBER_1  &kp NUMBER_2   &kp NUMBER_3  &kp MINUS           &mkp MB1               &mkp MB2               &kp CAPSLOCK       &kp GRAVE             &kp LS(GRAVE)     &trans
+                                    &kp BACKSPACE  &trans        &kp ENTER           &trans                 &mo 3                  &trans
             >;
         };
 
-        raise_layer {
-            display-name = "Raise";
+        lower {
             bindings = <
-   &kp TAB    &kp EXCL   &kp AT     &kp HASH  &kp DLLR   &kp PRCNT    &kp CARET  &kp AMPS   &kp STAR   &kp LPAR  &kp RPAR  &kp BSPC
-   &kp LCTRL  &kp MINUS  &kp EQUAL  &kp GRAVE &kp LBRC   &kp RBRC     &kp LBKT   &kp RBKT   &kp BSLH   &kp PIPE  &kp TILDE &kp SQT
-   &kp LSHFT  &bt BT_CLR &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &trans   &trans   &trans     &trans     &trans    &trans    &trans
-                               &trans  &trans  &trans      &trans    &trans    &kp RALT
+&trans  &kp RA(Q)             &kp RA(W)        &kp PLUS   &kp ASTERISK  &kp LS(NON_US_BSLH)    &kp HOME        &kp PAGE_DOWN   &kp PAGE_UP   &kp END          &none  &trans
+&trans  &kp NON_US_BACKSLASH  &kp UNDERSCORE   &kp MINUS  &kp EQUAL     &kp AMPERSAND          &kp LEFT_ARROW  &kp DOWN_ARROW  &kp UP_ARROW  &kp RIGHT_ARROW  &none  &trans
+&trans  &kp AT_SIGN           &kp EXCLAMATION  &kp HASH   &kp DOLLAR    &kp PERCENT            &none           &kp F16         &kp F17       &kp F18          &none  &trans
+                                               &trans     &mo 3         &trans                 &trans          &trans          &trans
             >;
         };
 
-        /*
-         * MOUSE layer (held via the left-inner thumb `&mo MOUSE`).
-         * Left hand keeps mods live (Ctrl/Shift/Alt) so Ctrl-click etc. work.
-         * Right hand becomes mouse buttons + scroll, per the Scoot model.
-         */
-        mouse_layer {
-            display-name = "Mouse";
+        extra {
             bindings = <
-   &trans     &trans  &trans  &trans  &trans  &trans      &msc SCRL_UP   &mkp LCLK  &mkp MCLK  &mkp RCLK  &trans  &trans
-   &kp LCTRL  &trans  &trans  &trans  &trans  &trans      &msc SCRL_DOWN &mkp LCLK  &mkp MCLK  &mkp RCLK  &trans  &trans
-   &kp LSHFT  &trans  &trans  &trans  &trans  &trans      &trans         &trans     &trans     &trans     &trans  &trans
-                              &trans  &trans  &kp LALT     &mkp LCLK      &trans     &trans
+&trans  &kp F15  &kp F7  &kp F8  &kp F9  &kp F12    &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &kp F14  &kp F4  &kp F5  &kp F6  &kp F11    &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &kp F13  &kp F1  &kp F2  &kp F3  &kp F10    &trans  &trans  &trans  &trans  &trans  &trans
+                         &trans  &trans  &trans     &trans  &trans  &trans
             >;
         };
     };

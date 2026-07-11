@@ -24,7 +24,7 @@ applied to an off-the-shelf wireless Corne.
   move and click. Turned on by uncommenting `layers = <1>;` in `mouse.dtsi`.
 
 > The keymap and BLE tuning here are copied verbatim from
-> [`xonha/zmk-corne`](https://github.com/xonha/zmk-corne); the only addition is
+> [`xonha/corne-zmk`](https://github.com/xonha/corne-zmk); the only addition is
 > the sensor (`mouse.dtsi` + `corne_right.conf` + the driver in `west.yml`).
 
 ## Layout of this repo
@@ -32,7 +32,7 @@ applied to an off-the-shelf wireless Corne.
 | File | Purpose |
 | --- | --- |
 | `config/west.yml` | Pulls in ZMK + the PMW3360 driver module. |
-| `config/corne.keymap` | Your zmk-corne keymap verbatim, **plus** `#include "mouse.dtsi"`. |
+| `config/corne.keymap` | Your corne-zmk keymap verbatim, **plus** `#include "mouse.dtsi"`. |
 | `config/mouse.dtsi` | The sensor: SPI node, pins, input-split channel, per-side split. |
 | `config/corne.conf` | Kconfig for **both** halves (pointing + BLE split). |
 | `config/corne_right.conf` | Kconfig for the **right** half only (SPI + driver). |
@@ -97,7 +97,7 @@ west build -s zmk/app -b nice_nano_v2 -- -DSHIELD=corne_right
   split is the lower-latency path — but on a *desk-mouse* it adds a second
   trailing cable to the half you slide, so it was passed over here.
 - **ZMK revision.** `west.yml` and the workflow are pinned to `v0.3` (matching
-  zmk-corne). Peripheral pointing needs `zmk,input-split`; if the right-half
+  corne-zmk). Peripheral pointing needs `zmk,input-split`; if the right-half
   build errors on those nodes, bump `zmk` in `west.yml` and the workflow ref to
   a newer tag together.
 - **The sliding half still has one cable** (its USB power lead). It must flex

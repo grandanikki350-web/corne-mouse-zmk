@@ -1,0 +1,13 @@
+# GitHub Actions build matrix.
+# Left = central (USB HID to the host). Right = peripheral (carries the sensor).
+# Board target: nRF52840 "Pro Micro"/SuperMini clones are drop-in compatible with
+# the nice!nano v2 pinout, so we build against nice_nano_v2. Confirm your board's
+# bootloader accepts nice_nano_v2 UF2 before relying on this.
+include:
+  - board: nice_nano_v2
+    shield: corne_left
+  - board: nice_nano_v2
+    shield: corne_right
+  # Flash this to wipe BLE bond/settings when re-pairing the halves or the host.
+  - board: nice_nano_v2
+    shield: settings_reset

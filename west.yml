@@ -1,0 +1,22 @@
+manifest:
+  remotes:
+    - name: zmkfirmware
+      url-base: https://github.com/zmkfirmware
+    - name: george-norton
+      url-base: https://github.com/george-norton
+  projects:
+    - name: zmk
+      remote: zmkfirmware
+      revision: v0.3
+      import: app/west.yml
+    # PMW3360 optical sensor driver (Zephyr input subsystem).
+    # NOTE: driving a sensor on the *peripheral* half needs `zmk,input-split`,
+    # which must exist in the ZMK revision pinned above. If the right-half build
+    # errors on the input-split/listener nodes, bump zmk `revision` to a newer
+    # tag (and match .github/workflows/build.yml). Pin this driver `revision`
+    # to a known-good commit once a build is verified.
+    - name: zmk-driver-pmw3360
+      remote: george-norton
+      revision: main
+  self:
+    path: config

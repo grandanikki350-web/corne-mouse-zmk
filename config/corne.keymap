@@ -22,54 +22,13 @@
 
 #include "mouse.dtsi"
 
-&lt { tapping-term-ms = <150>; };
-
-&mt { tapping-term-ms = <150>; };
-
 / {
     behaviors {
         // Shift no X (mao esquerda): so segura se a proxima tecla for da mao DIREITA
-
-        lsft: left_shift_positional {
-            compatible = "zmk,behavior-hold-tap";
-            #binding-cells = <2>;
-            flavor = "balanced";
-            tapping-term-ms = <200>;
-            quick-tap-ms = <175>;
-            require-prior-idle-ms = <125>;
-            bindings = <&kp>, <&kp>;
-
-            hold-trigger-key-positions = <6 7 8 9 10 11 18 19 20 21 22 23 30 31 32 33 34 35 39 40 41>;
-            hold-trigger-on-release;
-        };
-
         // Shift no . (mao direita): so segura se a proxima tecla for da mao ESQUERDA
-
-        rsft: right_shift_positional {
-            compatible = "zmk,behavior-hold-tap";
-            #binding-cells = <2>;
-            flavor = "balanced";
-            tapping-term-ms = <200>;
-            quick-tap-ms = <175>;
-            require-prior-idle-ms = <125>;
-            bindings = <&kp>, <&kp>;
-
-            hold-trigger-key-positions = <0 1 2 3 4 5 12 13 14 15 16 17 24 25 26 27 28 29 36 37 38>;
-            hold-trigger-on-release;
-        };
     };
 
     combos { compatible = "zmk,combos"; };
-
-    macros {
-        new_macro: new_macro {
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            bindings = <&new_macro>, <&macro_press>, <&kp GLOBE &kp F>;
-
-            label = "NEW_MACRO";
-        };
-    };
 
     keymap {
         compatible = "zmk,keymap";
@@ -109,10 +68,10 @@
 
         extra {
             bindings = <
-&kp C_AC_UNDO  &kp C_AC_REDO  &kp LG(V)       &kp UP_ARROW  &kp LG(C)      &kp PG_UP       &kp RG(R)         &kp RA(RS(RG(V)))   &kp LA(LG(RETURN))   &kp RS(RG(BSLH))     &kp GLOBE      &mt (F) RG(A)
-&kp LG(X)      &kp INSERT     &kp LEFT_ARROW  &kp DOWN      &kp RIGHT      &kp PG_DN       &mmv MOVE_X(600)  &mmv MOVE_Y(600)    &mmv (MOVE_Y(-600))  &mmv (MOVE_X(-600))  &mkp MB3       &mkp MB4
-&kp LS(LG(N))  &kp LS(LG(Z))  &kp LG(Z)       &kp LG(N)     &kp LG(W)      &kp LG(T)       &mkp MB5          &kp C_AC_FAVORITES  &kp RG(T)            &kp RG(W)            &kp RA(RG(F))  &kp RG(G)
-                                              &trans        &kp LG(MINUS)  &kp RG(PLUS)    &mkp MB1          &mkp MB2            &to 0
+&kp C_AC_UNDO  &kp C_AC_REDO  &kp LG(V)       &kp UP_ARROW  &kp LG(C)      &msc MOVE_Y(15)       &kp RG(R)         &kp RA(RS(RG(V)))   &kp LA(LG(RETURN))   &kp RS(RG(BSLH))     &kp GLOBE      &mt (F) RG(A)
+&kp LG(X)      &kp INSERT     &kp LEFT_ARROW  &kp DOWN      &kp RIGHT      &msc (MOVE_Y(-15))    &mmv MOVE_X(600)  &mmv MOVE_Y(600)    &mmv (MOVE_Y(-600))  &mmv (MOVE_X(-600))  &mkp MB3       &mkp MB4
+&kp LS(LG(N))  &kp LS(LG(Z))  &kp LG(Z)       &kp LG(N)     &kp LG(W)      &kp LG(T)             &mkp MB5          &kp C_AC_FAVORITES  &kp RG(N)            &kp RG(W)            &kp RA(RG(F))  &kp RG(G)
+                                              &trans        &kp LG(MINUS)  &kp RG(PLUS)          &mkp MB1          &mkp MB2            &to 0
             >;
         };
 
@@ -127,10 +86,10 @@
 
         layer_5 {
             bindings = <
-&trans     &kp LA(LG(A))        &kp LG(A)         &kp LG(X)     &kp LG(V)      &kp LG(C)         &kp RG(NUMBER_1)  &kp RG(NUMBER_2)  &kp RG(NUMBER_3)      &trans                 &kp GLOBE          &kp F
-&trans     &kp LG(RIGHT_BRACE)  &kp LA(LG(PIPE))  &kp LG(PIPE)  &kp LG(LBRC)   &kp LS(LG(Y))     &kp GLOBE         &kp RA(RG(N))     &kp RG(N)             &kp RA(RS(RG(S)))      &kp RA(RG(K))      &kp RA(RG(I))
-&kp PG_DN  &kp PG_UP            &kp PAGE_DOWN     &kp PAGE_UP   &kp UP_ARROW   &kp DOWN_ARROW    &kp F             &kp RA(RG(E))     &kp RG(SINGLE_QUOTE)  &kp RG(DOUBLE_QUOTES)  &kp RA(RG(EQUAL))  &kp RA(RG(B))
-                                                  &mkp MB1      &kp LS(LG(F))  &kp LA(LC(G))     &kp RG(N5)        &to 3             &to 0
+&msc MOVE_Y(15)     &kp LA(LG(A))        &kp LG(A)         &kp LG(X)     &kp LG(V)      &kp LG(C)         &kp RG(NUMBER_1)  &kp RG(NUMBER_2)  &kp RG(NUMBER_3)      &trans                 &kp GLOBE          &kp F
+&msc (MOVE_Y(-15))  &kp LG(RIGHT_BRACE)  &kp LA(LG(PIPE))  &kp LG(PIPE)  &kp LG(LBRC)   &kp LS(LG(Y))     &kp GLOBE         &kp RA(RG(N))     &kp RG(N)             &kp RA(RS(RG(S)))      &kp RA(RG(K))      &kp RA(RG(I))
+&kp PG_DN           &kp PG_UP            &kp PAGE_DOWN     &kp PAGE_UP   &kp UP_ARROW   &kp DOWN_ARROW    &kp F             &kp RA(RG(E))     &kp RG(SINGLE_QUOTE)  &kp RG(DOUBLE_QUOTES)  &kp RA(RG(EQUAL))  &kp RA(RG(B))
+                                                           &mkp MB1      &kp LS(LG(F))  &kp LA(LC(G))     &kp RG(N5)        &to 3             &to 0
             >;
         };
     };

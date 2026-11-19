@@ -88,7 +88,7 @@
             bindings = <
 &msc MOVE_Y(20)     &kp LA(LG(A))        &kp LG(A)         &kp LG(X)     &kp LG(V)      &kp LG(C)         &kp RG(NUMBER_1)  &kp RG(NUMBER_2)  &kp RG(NUMBER_3)      &trans                 &kp GLOBE          &kp F
 &msc (MOVE_Y(-20))  &kp LG(RIGHT_BRACE)  &kp LA(LG(PIPE))  &kp LG(PIPE)  &kp LG(LBRC)   &kp LS(LG(Y))     &kp GLOBE         &kp RA(RG(N))     &kp RG(N)             &kp RA(RS(RG(S)))      &kp RA(RG(K))      &kp RA(RG(I))
-&kp PG_DN           &kp PG_UP            &kp PAGE_DOWN     &kp PAGE_UP   &kp UP_ARROW   &kp DOWN_ARROW    &kp F             &kp RA(RG(E))     &kp RG(SINGLE_QUOTE)  &kp RG(DOUBLE_QUOTES)  &kp RA(RG(EQUAL))  &kp RA(RG(B))
+&kp PG_DN           &kp PG_UP            &kp PAGE_DOWN     &kp PAGE_UP   &kp UP_ARROW   &kp DOWN_ARROW    &kp RG(F)         &kp RA(RG(E))     &kp RG(SINGLE_QUOTE)  &kp RG(DOUBLE_QUOTES)  &kp RA(RG(EQUAL))  &kp RA(RG(B))
                                                            &mkp MB1      &kp LS(LG(F))  &kp LA(LC(G))     &kp RG(N5)        &to 3             &to 0
             >;
         };

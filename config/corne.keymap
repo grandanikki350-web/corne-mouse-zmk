@@ -68,7 +68,7 @@
 
         extra {
             bindings = <
-&kp C_AC_UNDO  &kp C_AC_REDO  &kp LG(V)       &kp UP_ARROW  &kp LG(C)      &msc MOVE_Y(20)       &kp RG(R)         &kp RA(RS(RG(V)))   &kp LA(LG(RETURN))   &kp RS(RG(BSLH))     &kp GLOBE      &mt (F) RG(A)
+&kp C_AC_UNDO  &kp C_AC_REDO  &kp LG(V)       &kp UP_ARROW  &kp LG(C)      &msc MOVE_Y(20)       &kp RG(R)         &kp RA(RS(RG(V)))   &kp LA(LG(RETURN))   &kp RS(RG(BSLH))     &kp GLOBE      &kp F
 &kp LG(X)      &kp INSERT     &kp LEFT_ARROW  &kp DOWN      &kp RIGHT      &msc (MOVE_Y(-20))    &mmv MOVE_X(600)  &mmv MOVE_Y(600)    &mmv (MOVE_Y(-600))  &mmv (MOVE_X(-600))  &mkp MB3       &mkp MB4
 &kp LS(LG(N))  &kp LS(LG(Z))  &kp LG(Z)       &kp LG(N)     &kp LG(W)      &kp LG(T)             &mkp MB5          &kp C_AC_FAVORITES  &kp RG(N)            &kp RG(W)            &kp RA(RG(F))  &kp RG(G)
                                               &trans        &kp LG(MINUS)  &kp RG(PLUS)          &mkp MB1          &mkp MB2            &to 0

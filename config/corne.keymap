@@ -72,37 +72,37 @@
             //                    | GUI | LWR | SPC |   | ENT | RSE  | ALT |
 
             bindings = <
-&mmv MOVE_Y(200)  &kp Q               &kp W  &kp E                 &kp R  &kp T    &kp Y            &kp U                        &kp I      &kp O    &kp P         &to 2
-&mmv MOVE_Y(600)  &kp A               &kp S  &kp D                 &kp F  &kp G    &kp H            &kp J                        &kp K      &kp L    &kp SEMI      &kp SINGLE_QUOTE
-&mmv MOVE_Y(600)  &lsft LEFT_SHIFT Z  &kp X  &kp C                 &kp V  &kp B    &kp N            &kp M                        &kp COMMA  &kp DOT  &kp QUESTION  &kp RG(SPACE)
-                                             &mt (LEFT_GUI) LG(Q)  &to 4  &to 3    &mt ENTER SPACE  &mt RG(BACKSPACE) BACKSPACE  &to 1
+&kp TAB                        &kp Q               &kp W  &kp E                 &kp R  &kp T    &kp Y            &kp U  &kp I      &kp O    &kp P           &mt RG(BACKSPACE) BACKSPACE
+&mt DOUBLE_QUOTES EXCLAMATION  &kp A               &kp S  &kp D                 &kp F  &kp G    &kp H            &kp J  &kp K      &kp L    &mt SEMI COLON  &kp SINGLE_QUOTE
+&kp CAPS                       &lsft LEFT_SHIFT Z  &kp X  &kp C                 &kp V  &kp B    &kp N            &kp M  &kp COMMA  &kp DOT  &kp QUESTION    &kp RG(SPACE)
+                                                          &mt (LEFT_GUI) LG(Q)  &to 4  &to 3    &mt ENTER SPACE  &to 2  &to 1
             >;
         };
 
         upper {
             bindings = <
-&trans  &kp ASTERISK  &kp NUMBER_7  &kp NUMBER_8   &kp NUMBER_9  &kp PLUS            &kp LS(BACKSLASH)      &kp RIGHT_PARENTHESIS  &kp BACKSLASH      &kp LS(LEFT_BRACKET)  &kp LEFT_BRACKET  &trans
-&trans  &kp NUMBER_0  &kp NUMBER_4  &kp NUMBER_5   &kp NUMBER_6  &mt COMMA PERIOD    &kp LS(RIGHT_BRACKET)  &kp LEFT_PARENTHESIS   &kp RIGHT_BRACKET  &kp LS(APOSTROPHE)    &kp APOSTROPHE    &trans
-&trans  &kp RA(Q)     &kp NUMBER_1  &kp NUMBER_2   &kp NUMBER_3  &kp MINUS           &mkp MB1               &mkp MB2               &kp CAPSLOCK       &kp GRAVE             &kp LS(GRAVE)     &trans
-                                    &kp BACKSPACE  &trans        &kp ENTER           &trans                 &mo 3                  &to 0
+&msc (MOVE_X(-15))  &kp ASTERISK  &kp NUMBER_7  &kp NUMBER_8   &kp NUMBER_9     &kp PLUS            &kp LS(BACKSLASH)      &kp RIGHT_PARENTHESIS  &kp BACKSLASH      &kp LS(LEFT_BRACKET)  &kp LEFT_BRACKET   &mmv MOVE_X(500)
+&msc MOVE_X(15)     &kp NUMBER_0  &kp NUMBER_4  &kp NUMBER_5   &kp NUMBER_6     &mt COMMA PERIOD    &kp LS(RIGHT_BRACKET)  &kp LEFT_PARENTHESIS   &kp RIGHT_BRACKET  &kp LS(APOSTROPHE)    &kp DOUBLE_QUOTES  &mmv (MOVE_Y(-500))
+&msc (MOVE_Y(-15))  &kp RA(Q)     &kp NUMBER_1  &kp NUMBER_2   &kp NUMBER_3     &kp MINUS           &mkp MB1               &mkp MB2               &kp CAPSLOCK       &kp GRAVE             &kp LS(GRAVE)      &mmv MOVE_Y(500)
+                                                &kp BACKSPACE  &msc MOVE_Y(15)  &kp ENTER           &mmv (MOVE_X(-500))    &to 3                  &to 0
             >;
         };
 
         lower {
             bindings = <
-&trans            &kp RA(Q)             &kp RA(W)        &kp PLUS   &kp ASTERISK      &kp LS(NON_US_BSLH)    &kp C_AC_DESKTOP_SHOW_ALL_WINDOWS  &kp PAGE_DOWN        &kp PAGE_UP   &kp END          &none          &trans
-&kp LEFT_BRACKET  &kp NON_US_BACKSLASH  &kp UNDERSCORE   &kp MINUS  &kp EQUAL         &kp AMPERSAND          &kp LEFT_ARROW                     &kp DOWN_ARROW       &kp UP_ARROW  &kp RIGHT_ARROW  &kp BACKSPACE  &ext_power EP_OFF
-&kp COLON         &kp AT_SIGN           &kp EXCLAMATION  &kp HASH   &kp DOLLAR        &kp PERCENT            &mmv MOVE_X(500)                   &mmv (MOVE_X(-500))  &mkp MB1      &mkp MB2         &none          &ext_power EP_ON
+&trans            &kp RA(Q)             &kp RA(W)        &kp PLUS   &kp ASTERISK      &kp LS(NON_US_BSLH)    &kp C_AC_DESKTOP_SHOW_ALL_WINDOWS  &kp PAGE_DOWN        &kp PAGE_UP   &kp END          &kp RG(KP_MINUS)  &trans
+&kp LEFT_BRACKET  &kp NON_US_BACKSLASH  &kp UNDERSCORE   &kp MINUS  &kp EQUAL         &kp AMPERSAND          &kp LEFT_ARROW                     &kp DOWN_ARROW       &kp UP_ARROW  &kp RIGHT_ARROW  &kp BACKSPACE     &ext_power EP_OFF
+&kp COLON         &kp AT_SIGN           &kp EXCLAMATION  &kp HASH   &kp DOLLAR        &kp PERCENT            &mmv MOVE_X(500)                   &mmv (MOVE_X(-500))  &mkp MB1      &mkp MB2         &kp RG(PLUS)      &ext_power EP_ON
                                                          &trans     &ext_power EP_ON  &ext_power EP_OFF      &mmv MOVE_Y(500)                   &mmv (MOVE_Y(-500))  &to 0
             >;
         };
 
         extra {
             bindings = <
-&kp C_AC_UNDO  &kp C_AC_REDO  &kp C_AC_PASTE  &kp UP_ARROW  &kp C_AC_COPY      &kp PG_UP           &kp C_AC_REFRESH  &msc MOVE_Y(15)     &msc (MOVE_Y(-15))   &msc MOVE_X(15)      &msc (MOVE_X(-15))  &trans
-&kp C_AC_CUT   &kp INSERT     &kp LEFT_ARROW  &kp DOWN      &kp RIGHT          &kp PAGE_DOWN       &mmv MOVE_X(600)  &mmv MOVE_Y(600)    &mmv (MOVE_Y(-600))  &mmv (MOVE_X(-600))  &mkp MB3            &mkp MB4
-&kp LS(LG(N))  &kp LS(LG(Z))  &kp LG(Z)       &kp LG(N)     &kp LG(W)          &kp LG(T)           &mkp MB5          &kp C_AC_FAVORITES  &kp RG(T)            &kp RG(W)            &trans              &trans
-                                              &trans        &kp C_AC_ZOOM_OUT  &kp C_AC_ZOOM_IN    &mkp MB1          &mkp MB2            &to 0
+&kp C_AC_UNDO  &kp C_AC_REDO  &kp C_AC_PASTE  &kp UP_ARROW  &kp C_AC_COPY  &kp PAGE_UP      &kp K_REFRESH     &msc MOVE_Y(15)     &msc (MOVE_Y(-15))   &msc MOVE_X(15)      &msc (MOVE_X(-15))  &trans
+&kp C_AC_CUT   &kp INSERT     &kp LEFT_ARROW  &kp DOWN      &kp RIGHT      &kp PAGE_DOWN    &mmv MOVE_X(600)  &mmv MOVE_Y(600)    &mmv (MOVE_Y(-600))  &mmv (MOVE_X(-600))  &mkp MB3            &mkp MB4
+&kp LS(LG(N))  &kp LS(LG(Z))  &kp LG(Z)       &kp LG(N)     &kp LG(W)      &kp LG(T)        &mkp MB5          &kp C_AC_FAVORITES  &kp RG(T)            &kp RG(W)            &trans              &trans
+                                              &trans        &kp LG(MINUS)  &kp RG(PLUS)     &mkp MB1          &mkp MB2            &to 0
             >;
         };
 

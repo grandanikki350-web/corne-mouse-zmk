@@ -9,26 +9,16 @@
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/pointing.h>
 
-/*
- * Desk-mouse hardware (PMW3360 on the right half) + the split plumbing that
- * carries its motion to the left/central half. See config/mouse.dtsi for the
- * wiring TODOs. This is the only addition on top of the base corne-zmk keymap.
- *
- * Layer indices used below (unchanged from corne-zmk):
- *   0 = main   1 = upper (hold left thumb SPACE)   2 = lower   3 = extra
- * The `upper` layer already carries &mkp MB1/MB2, so it's the natural
- * hold-to-mouse gate -- see the `layers` note in mouse.dtsi.
- */
+ 
+ 
 
 #include "mouse.dtsi"
 
 / {
-    behaviors {
-        // Shift no X (mao esquerda): so segura se a proxima tecla for da mao DIREITA
-        // Shift no . (mao direita): so segura se a proxima tecla for da mao ESQUERDA
+ 
     };
 
-    combos { compatible = "zmk,combos"; };
+
 
     keymap {
         compatible = "zmk,keymap";
